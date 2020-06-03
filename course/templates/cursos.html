@@ -1,0 +1,138 @@
+{% extends 'core.html' %}
+{%load static%}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<title></title>
+</head>
+<body>
+
+	{% block content %}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Docente
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+            {% for t in NameDocentes %}
+            <form  class="form-inline my-2 my-lg-0" action= "cursosdoc" method="POST">
+              {% csrf_token %}
+            <input style= "display:none " class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar" value = "{{t.id}}">
+            <button style="color:Black; text-decoration: none; text-align: left; width: 300px" class="btn btn-link" type="submit">{{t.Docente}}</button>
+            </form>
+            {%endfor%}
+            </div>
+            </li>
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hora
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+            {% for t in HorasList%}
+            <form  class="form-inline my-2 my-lg-0" action= "cursoshora" method="POST">
+              {% csrf_token %}
+            <input style= "display:none " class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar" value = "{{t.id}}">
+            <button style="color:Black; text-decoration: none; text-align: left; width: 300px" class="btn btn-link" type="submit">{{t.Hora}}</button>
+            </form>
+            
+            {%endfor%}
+            </div>
+            </li>
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Fecha
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+            {% for t in FechasList%}
+            <form  class="form-inline my-2 my-lg-0" action= "cursosfecha" method="POST">
+              {% csrf_token %}
+            <input style= "display:none " class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar" value = "{{t.id}}">
+            <button style="color:Black; text-decoration: none; text-align: left; width: 300px" class="btn btn-link" type="submit">{{t.Fecha}}</button>
+            </form>
+            
+            {%endfor%}
+            </div>
+            </li>
+            </li>
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Aula
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+            {% for t in AulasList%}
+            <form  class="form-inline my-2 my-lg-0" action= "cursosaula" method="POST">
+              {% csrf_token %}
+            <input style= "display:none " class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar" value = "{{t.id}}">
+            <button style="color:Black; text-decoration: none; text-align: left; width: 300px" class="btn btn-link" type="submit">{{t.Aula}}</button>
+            </form>
+            
+            {%endfor%}
+            </div>
+            </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Carrera
+          </a>
+          <div style="width: 350px;" class="dropdown-menu" aria-labelledby="navbarDropdown" >
+            {%for t in IngenieriaList %}
+            <form  class="form-inline my-2 my-lg-0" action= "cursosing" method="POST">
+              {% csrf_token %}
+            <input style= "display:none " class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar" value = "{{t.id}}">
+            <button style="color:Black; text-decoration: none; text-align: left;" class="btn btn-link" type="submit">{{t.Ingenieria}}</button>
+            </form>
+            {%endfor%}
+            </div>
+         </li>
+    <form  class="form-inline my-2 my-lg-0" action= "cursos" method="POST">
+      {% csrf_token %}s
+      <input class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar">
+      <button class="btn btn-outline-success my-2 my-sm-0" style="border-color: red; color:white" type="submit">Buscar por Nombre</button>
+    </form>
+  </div>
+</nav> 
+		<div class="container-fluid">
+    <div class="row row-cols-xs-1 row-cols-md-12 ">
+  {% for t in cursos%}
+    <div class="col mb-4">
+    <div class="card border border-dark mt-3" src="{{t.Url}}" style="height:40rem ;width: 18rem; background-color:#467af2;" >
+
+            <img src="https://i.ibb.co/NSrkF9X/ofimatica.jpg" class="card-img-top"  alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="color: black;">{{t.Curso}}</h5>
+            <p class="card-text " style="color: black">Curso impartido por {{t.Docente}} en el aula {{t.Aula}} a las {{t.Hora}}.
+            <p style="color: black">Fecha de inicio: {{t.Fecha}}</p>
+            <p style="color: black">Curso para {{t.Ingenieria}}</p>
+            <form action="cursosreg" method="POST">
+              {% csrf_token %}
+              <button href="#" class="btn btn-dark">Registrarse</button>
+              <input style="display: none" type="" name="buscalo" value="{{t.id}}">
+            </form>
+            
+            </div>
+        </div>
+</div>
+
+  {% endfor %}
+  </div>
+  </div>
+
+
+	{%endblock%}
+	
+	
+</body>
+
+</html>
+       
